@@ -11,6 +11,7 @@ const request = require('request'); //installed
 // var db = require('./models');
 const app = express();
 const PORT = process.env.PORT || 6666;
+var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/mongoHeadlines';
 // const routes = require('./routes')
 
 app.use(logger('dev'));
@@ -18,6 +19,12 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());
+
+mongoose.set('debug', true);
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI, {
+    useMongoClient: true
+});
 
 
 app.use(express.static('public'));

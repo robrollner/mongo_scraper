@@ -1,17 +1,36 @@
-<div class="parallax-container">
-    <div class="parallax">
-        <img src="images/parallax1.jpg">
+{{!-- <div class="parallax-container"> --}}
+    <div class="text-center">
+        <h2>{{Article.length}}</h3>
+        <a id="scraper" class="waves-effect waves-light btn" href="/scrape">Scrape</a>
+        <a id="deleter" class="waves-effect waves-light btn" href="/delete">Delete</a>
     </div>
+
+    <ul class="collection">
+        {{#each article}}
+        <li class="collection-item avatar">
+            <img src="{{thumbnail}}" alt="" class="circle">
+            <span class="title"></span>
+            <p>
+                <br> 
+            </p>
+            <a href="#!" class="secondary-content">
+                <i class="material-icons">business</i>
+            </a>
+        </li> 
+        {{/each}}       
+    </ul>
+<!-- Modal Trigger -->
+<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>A bunch of text</p>
     </div>
-    <div class="section white">
-        <div class="row container">
-            <h2 class="header">Parallax</h2>
-            <p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this case, is moved at a different speed than the
-                foreground content while scrolling.</p>
-        </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
     </div>
-    <div class="parallax-container">
-        <div class="parallax">
-            <img src="images/parallax2.jpg">
-        </div>
 </div>
+
+{{!-- </div> --}}

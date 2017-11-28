@@ -1,5 +1,6 @@
 var express = require('express');
-const db = require('../models');
+const Article = require('../models/article');
+const Note = require('../models/note');
 var router = express.Router();
 var request = require('request');
 const cheerio = require('cheerio');
@@ -7,7 +8,8 @@ const cheerio = require('cheerio');
 
 
 router.get('/', (req, res, next) => {
-    db.Article.find({}).populate('notes')
+    Article.find({})
+        .populate('notes')
         .then((articles) => {
             console.log(articles);
             res.render('index', { article: articles, title: 'Express', })
@@ -18,40 +20,54 @@ router.get('/', (req, res, next) => {
 router.get('/scrape', (req, res) => {
     request("https://www.nytimes.com/", (error, response, html) => {
         // console.log(response);
-        var $ = cheerio.load(html);
+        const $ = cheerio.load(html);
 
-        const createPromises = [];
-        $("h2.story.heading").each((i, element) => {
-            let result = {};
-            result.title = $(this)
-                .children("a")
-                .text();
+        $(".story-heading").each((i, element) => {
 
-            result.link = $(this)
-                .children("a")
-                .attr("href");
-            const promise = db.Article.create(result);
-            createPromises.push(promise);
+            let articleTitle = $(element).find("a").text();
+            let articleLink = $(element).find("a").attr("href");
 
+            let image = $(element).find(".thumb").find("img").attr("src");
+
+            Article.collection.update(
+
+                { articleLink: articleLink }, { $set: { articleTitle: articleTitle, image: image, dateAdded: Date.now() } }, { upsert: true })
         })
-        Promise.all(createPromises).then((timesArticle) => {
-                console.log(timesArticle);
-                res.json(timesArticle);
-            }).catch((err) => {
-                console.log(err)
-            })
-            // res.redirect('/');
+
+        // let createPromises = [];
+        // $("h2.story.heading").each((i, element) => {
+
+        //     let result = {};
+
+        //     result.title = $(this)
+        //         .children("a")
+        //         .text();
+
+        //     result.link = $(this)
+        //         .children("a")
+        //         .attr("href");
+        //     const promise = db.Article.create(result);
+        //     createPromises.push(promise);
+
+        // })
+        // Promise.all(createPromises).then((timesArticle) => {
+        //         console.log(timesArticle);
+        //         res.json(timesArticle);
+        //     }).catch((err) => {
+        //         console.log(err)
+        //     })
+        // res.redirect('/');
     })
 });
 
 router.get('/delete', (req, res) => {
     console.log('Commence Delete');
-    db.Note.collection.drop()
+    Note.collection.drop()
         .then(() => {
             res.json('Deleted Notes')
         })
 
-    db.Article.collection.drop()
+    Article.collection.drop()
         .then(() => {
             res.json('Deleted Articles')
                 // res.redirect('/');

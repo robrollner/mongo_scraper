@@ -21,7 +21,7 @@ router.get('/scrape', (req, res) => {
         // console.log(response);
         const $ = cheerio.load(html);
 
-        $(".thumb").each((i, element) => {
+        $("article.story").each((i, element) => {
 
             let articleTitle = $(element).find("a").text();
             let articleLink = $(element).find("a").attr("href");
@@ -40,14 +40,15 @@ router.get('/delete', (req, res) => {
     console.log('Commence Delete');
     db.Note.collection.drop()
         .then(() => {
-            res.json('Deleted Notes')
+            console.log('Deleted Notes')
         })
 
     db.Article.collection.drop()
         .then(() => {
-            res.json('Deleted Articles')
-                // res.redirect('/');
+            console.log('Deleted Articles');
+            // res.redirect('/');
         })
+    res.redirect('/')
 });
 
 

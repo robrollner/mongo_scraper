@@ -32,8 +32,8 @@ router.get('/scrape', (req, res) => {
 
                 { articleLink: articleLink }, { $set: { articleTitle: articleTitle, image: image, dateAdded: Date.now() } }, { upsert: true })
         })
-
     })
+    res.render('scrape', {})
 });
 
 router.get('/delete', (req, res) => {

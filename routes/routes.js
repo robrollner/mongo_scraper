@@ -51,6 +51,19 @@ router.get('/delete', (req, res) => {
     res.redirect('/')
 });
 
+router.post('/note/:id', (req, res) => {
+    db.Note.create({ note: req.body.thisNote })
+        .then((dbNote) => {
+            return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { notes: dbNote._id } }, { new: true })
+        })
+        .then((dbArticle) => {
+            res.json(dbArticle)
+        })
+        .catch((err) => {
+            res.json(err);
+        })
+})
+
 
 
 

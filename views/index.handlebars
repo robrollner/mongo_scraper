@@ -1,26 +1,31 @@
-{{!-- <div class="parallax-container"> --}}
-    <div class="text-center">
-        <h2>{{Article.length}}</h3>
-        <a id="scraper" class="waves-effect waves-light btn" href="/scrape">Scrape</a>
-        <a id="deleter" class="waves-effect waves-light btn" href="/delete">Delete</a>
+<div class="container">
+    <div class="col s6 m3">
+        <div class="text-center">
+            <h2>{{article.length}} articles to read today</h3>
+            <a id="scraper" class="waves-effect waves-light btn" href="/scrape">Scrape</a>
+            <a id="deleter" class="waves-effect waves-light btn" href="/delete">Delete</a>
+        </div>
     </div>
-
-    <ul class="collection">
-        {{#each article}}
-        <li class="collection-item avatar">
-            <img src="{{thumbnail}}" alt="" class="circle">
-            <span class="title"></span>
-            <p>
-                <br> 
-            </p>
-            <a href="#!" class="secondary-content">
-                <i class="material-icons">business</i>
-            </a>
-        </li> 
-        {{/each}}       
-    </ul>
+    {{#each article }}
+        <div class="col s12 m7">
+            <h2 class="header">{{articleTitle}}</h2>
+            <div class="card horizontal">
+                <div class="card-image">
+                    <img src="{{image}}">
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p>{{articleTitle}}</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="{{articleLink}}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/each}}       
 <!-- Modal Trigger -->
-<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+{{!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
@@ -31,6 +36,6 @@
     <div class="modal-footer">
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
     </div>
-</div>
+</div> --}}
 
-{{!-- </div> --}}
+</div>

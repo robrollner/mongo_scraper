@@ -27,10 +27,10 @@ router.get('/scrape', (req, res) => {
             let articleLink = $(element).find("a").attr("href");
 
             let image = $(element).find(".thumb").find("img").attr("src");
-
+            let summary = $(element).find(".summary").text();
             db.Article.collection.update(
 
-                { articleLink: articleLink }, { $set: { articleTitle: articleTitle, image: image, dateAdded: Date.now() } }, { upsert: true })
+                { articleLink: articleLink }, { $set: { articleTitle: articleTitle, image: image, summary: summary, dateAdded: Date.now() } }, { upsert: true })
         })
     })
     res.render('scrape', {})

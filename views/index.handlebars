@@ -1,35 +1,28 @@
 <div class="container">
     <div class="col s6 m3">
         <div class="text-center">
-            <h2>{{article.length}} articles to read today</h3>
-            <a id="scraper" class="waves-effect waves-light btn" href="/scrape">Scrape</a>
-            <a id="deleter" class="waves-effect waves-light btn" href="/delete">Delete</a>
+            <h2 class="">{{article.length}} articles to read today</h3>
+            <a id="scraper" class="waves-effect waves-light btn pink darken-4" href="/scrape">Scrape</a>
+            <a id="deleter" class="waves-effect waves-light btn cyan darken-3" href="/delete">Delete</a>
         </div>
     </div>
     {{#each article }}
         <div class="col s12 m6">
-            <h4 class="header">{{articleTitle}}</h2>
-            {{!-- <div class="card horizontal">
-                <div class="card-image"> --}}
-                    <img src="{{image}}">
-                {{!-- </div> --}}
-                {{!-- <div class="card-stacked">
-                    <div class="card-content"> --}}
-                        <h6>{{ summary }}</h6>
-                    {{!-- </div>
-                    <div class="card-action"> --}}
-                        <a href="{{articleLink}}"></a>
-                    {{!-- </div>
-                </div> --}}
+                <div class="card-panel hoverable">
+            <h4 class="header">{{articleTitle}}</h4>
+            <h6 class="">{{ author }}</h6>
+                    <img src="{{image}}">           
+                    <h6>{{ summary }}</h6>                  
+                    <a class="waves-effect waves-light btn modal-trigger grey darken-4 z-depth-5" href="{{articleLink}}">Read Me!</a>
+                    <a class="waves-effect waves-light btn modal-trigger purple darken-4 right btn-floating pulse z-depth-5" href="#modal1"><i class="large material-icons">keyboard</i></a>
+                </div>                 
             </div>
-        {{!-- </div> --}}
     {{/each}}       
-{{!-- <!-- Modal Trigger -->
-<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+<!-- Modal Trigger -->
 
 <!-- Modal Structure -->
-{{#each article}}
-    {{#each notes}}
+
+    {{!-- {{#each notes}}
 <div id="modal1" class="modal">
     <div class="modal-content">
         <h4>Modal Header</h4>
@@ -39,6 +32,6 @@
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
     </div>
 </div>
-{{/each}}
 {{/each}} --}}
+
 </div>

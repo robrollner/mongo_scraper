@@ -52,7 +52,19 @@ router.get('/delete', (req, res) => {
     res.redirect('/')
 });
 
-router.post('/note/:id', (req, res) => {
+router.get("/addNote/:id", (req, res) => {
+    db.Article.findOne({ _id: req.params.id })
+        .populate("notes")
+        .then((dbArticle) => {
+            console.log(dbArticle);
+            res.json(dbArticle);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+});
+
+router.post('/addNote/:id', (req, res) => {
     db.Note.create({ note: req.body.thisNote })
         .then((dbNote) => {
             return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { notes: dbNote._id } }, { new: true })

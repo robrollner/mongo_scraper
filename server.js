@@ -1,3 +1,4 @@
+//Dependencies
 const express = require('express');
 const exphbs = require("express-handlebars");
 const logger = require('morgan');
@@ -5,18 +6,17 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
 const cheerio = require('cheerio');
-// const request = require('request');
-// const axios = require("axios");
 
-
+//Setting up express
 const app = express();
 const PORT = process.env.PORT || 3000;
 var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/times';
 
+//Requiring routes
 const routes = require('./routes/routes');
 
 
-
+//Initializing Mongoose 
 mongoose.set('debug', true);
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, {
@@ -24,9 +24,10 @@ mongoose.connect(MONGODB_URI, {
 });
 
 
-
+//Initializing Handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
